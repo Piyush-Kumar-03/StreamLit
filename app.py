@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import joblib
 
-# Load the trained model and scaler
+# Load model and scaler
 model = joblib.load("house_model.pkl")
 scaler = joblib.load("scaler.pkl")
 
@@ -14,10 +14,11 @@ st.write("Predict the **median house value** based on the number of total rooms.
 # Input from user
 total_rooms = st.number_input("Enter total number of rooms:", min_value=1)
 
+# Predict on button click
 if st.button("Predict"):
     # Scale the input
-    input_scaled = scaler.transform([[total_rooms]])
+    scaled_input = scaler.transform([[total_rooms]])
     # Make prediction
-    prediction = model.predict(input_scaled)[0]
+    prediction = model.predict(scaled_input)[0]
     # Display result
     st.success(f"Predicted Median House Value: ${prediction:,.2f}")
